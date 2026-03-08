@@ -1,6 +1,6 @@
 ﻿// Task Summary:
 // - Added manual location settings (City/Country) and seasonal mode (Auto/Winter/Summer).
-// - Exposed IsManualLocationEnabled for settings UI enable/disable logic.
+// - Added auto-update preference setting.
 using System.Windows.Input;
 using Wahee.Core.Interfaces;
 using Wahee.Core.ViewModels;
@@ -59,6 +59,19 @@ namespace Wahee.UI.ViewModels
                 if (SetProperty(ref _azkarReminder, value))
                 {
                     _ = SaveSettingAsync("AzkarReminder", value.ToString());
+                }
+            }
+        }
+
+        private bool _autoUpdateEnabled = true;
+        public bool AutoUpdateEnabled
+        {
+            get => _autoUpdateEnabled;
+            set
+            {
+                if (SetProperty(ref _autoUpdateEnabled, value))
+                {
+                    _ = SaveSettingAsync("AutoUpdateEnabled", value.ToString());
                 }
             }
         }
@@ -155,6 +168,9 @@ namespace Wahee.UI.ViewModels
                 var azkar = await _settingsService.GetSettingAsync("AzkarReminder");
                 _azkarReminder = bool.TryParse(azkar, out var a) && a;
 
+                var autoUpdate = await _settingsService.GetSettingAsync("AutoUpdateEnabled");
+                _autoUpdateEnabled = !bool.TryParse(autoUpdate, out var u) || u;
+
                 var location = await _settingsService.GetSettingAsync("AutoDetectLocation");
                 _autoDetectLocation = !bool.TryParse(location, out var l) || l;
 
@@ -169,6 +185,7 @@ namespace Wahee.UI.ViewModels
                 OnPropertyChanged(nameof(StartWithWindows));
                 OnPropertyChanged(nameof(MinimizeToTray));
                 OnPropertyChanged(nameof(AzkarReminder));
+                OnPropertyChanged(nameof(AutoUpdateEnabled));
                 OnPropertyChanged(nameof(AutoDetectLocation));
                 OnPropertyChanged(nameof(IsManualLocationEnabled));
                 OnPropertyChanged(nameof(ManualCity));

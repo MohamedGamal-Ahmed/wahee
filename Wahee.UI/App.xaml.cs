@@ -1,11 +1,13 @@
 ﻿// Task Summary:
-// - Phase 2 / Task 2: Registered ViewModels in DI for MVVM wiring.
+// - Registered update service for GitHub release auto-updates.
+// - Startup now checks for updates in background.
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Wahee.Core.Interfaces;
 using Wahee.Infrastructure.Data;
 using Wahee.Infrastructure.Services;
+using Wahee.UI.Services;
 using Wahee.UI.ViewModels;
 
 namespace Wahee.UI
@@ -23,7 +25,6 @@ namespace Wahee.UI
 
                 ServiceProvider = serviceCollection.BuildServiceProvider();
 
-                // FIXED: Startup race condition (critical DB init before showing UI)
                 using (var scope = ServiceProvider.CreateScope())
                 {
                     var context = scope.ServiceProvider.GetRequiredService<WaheeDbContext>();
@@ -58,6 +59,9 @@ namespace Wahee.UI
                 var adhanService = ServiceProvider!.GetRequiredService<AdhanNotificationService>();
                 adhanService.AdhanTriggered += AdhanService_AdhanTriggered;
                 await adhanService.InitializeAsync();
+
+                var updateService = ServiceProvider!.GetRequiredService<IUpdateService>();
+                _ = updateService.CheckForUpdatesAsync(false);
             }
             catch (Exception ex)
             {
@@ -114,10 +118,10 @@ namespace Wahee.UI
             services.AddScoped<IPrayerTimeService, PrayerTimeService>();
             services.AddScoped<IContentBridgeService, ContentBridgeService>();
             services.AddScoped<IFavoritesService, FavoritesService>();
+            services.AddScoped<IUpdateService, UpdateService>();
 
             services.AddSingleton<AdhanNotificationService>();
 
-            // ViewModels
             services.AddTransient<HomeViewModel>();
             services.AddTransient<QuranViewModel>();
             services.AddTransient<AzkarViewModel>();
@@ -127,3 +131,4 @@ namespace Wahee.UI
         }
     }
 }
+

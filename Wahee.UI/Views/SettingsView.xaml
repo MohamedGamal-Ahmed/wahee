@@ -74,6 +74,18 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel>
+                            <TextBlock Text="التحديث التلقائي" Foreground="{DynamicResource TextForegroundBrush}" FontWeight="SemiBold"/>
+                            <TextBlock Text="التحقق من التحديثات من GitHub Releases" Foreground="#88FFFFFF" FontSize="12"/>
+                        </StackPanel>
+                        <ToggleButton Grid.Column="1" Style="{StaticResource ModernToggleStyle}" IsChecked="{Binding AutoUpdateEnabled, Mode=TwoWay}"/>
+                    </Grid>
+
+                    <Grid Margin="0,0,0,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
                             <TextBlock Text="تحديد الموقع تلقائياً" Foreground="{DynamicResource TextForegroundBrush}" FontWeight="SemiBold"/>
                             <TextBlock Text="استخدام IP لتحديد مواقيت الصلاة" Foreground="#88FFFFFF" FontSize="12"/>
                         </StackPanel>

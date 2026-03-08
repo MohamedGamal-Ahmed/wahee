@@ -1,0 +1,38 @@
+﻿name: Bug report
+description: Report a crash or incorrect behavior
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "شكراً لمساعدتك في تحسين وحي."
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      placeholder: "e.g. 1.0.6"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: "1) ... 2) ..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / screenshots
+      placeholder: "Attach screenshots or error messages"
