@@ -1,0 +1,92 @@
+<local:WaheeWidgetBase x:Class="Wahee.UI.Widgets.AyahWidget"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:local="clr-namespace:Wahee.UI.Widgets"
+                        Title="آية اليوم"
+                        MinHeight="150" MaxHeight="400"
+                        MinWidth="350" MaxWidth="550"
+                        SizeToContent="WidthAndHeight"
+                        WindowStartupLocation="Manual"
+                        Topmost="False"
+                        AllowsTransparency="True"
+                        WindowStyle="None"
+                        Background="Transparent"
+                        FlowDirection="RightToLeft">
+    
+    <Window.Resources>
+        <Storyboard x:Key="FadeIn">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8"/>
+        </Storyboard>
+    </Window.Resources>
+    
+    <Border x:Name="MainBorder" Background="{DynamicResource BackgroundMainBrush}" CornerRadius="20" Margin="10">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="20" Opacity="0.5" ShadowDepth="0"/>
+        </Border.Effect>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Grid>
+                <TextBlock Text="آية اليوم" Foreground="{DynamicResource TextHeaderBrush}" FontSize="12" FontFamily="Segoe UI Semibold"/>
+                <Button HorizontalAlignment="Right" Click="CloseButton_Click" 
+                        Style="{StaticResource ModernButtonStyle}" Padding="5" Background="Transparent">
+                    <Path Data="{StaticResource CloseIconGeometry}" Fill="{DynamicResource TextMutedBrush}" Stretch="Uniform" Width="10" Height="10"/>
+                </Button>
+            </Grid>
+
+            <!-- Ayah Text -->
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="0,15">
+                <TextBlock x:Name="AyahTextBlock" Text="... جاري التحميل ..." 
+                           Foreground="{DynamicResource TextForegroundBrush}" FontSize="26" TextAlignment="Center" 
+                           TextWrapping="Wrap" LineHeight="40" FontFamily="Cairo, Segoe UI Semibold"/>
+                <TextBlock x:Name="SourceTextBlock" Text="" 
+                           Foreground="{DynamicResource AccentHighlightBrush}" FontSize="14" 
+                           TextAlignment="Center" Margin="0,10,0,0" FontFamily="Segoe UI"/>
+            </StackPanel>
+
+            <!-- Toolbar -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+                <Button x:Name="PlayBtn" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Margin="5" Click="PlayBtn_Click">
+                    <Path x:Name="PlayIconPath" Data="{StaticResource PlayIconGeometry}" Fill="{DynamicResource AccentBrush}" Stretch="Uniform" Width="16" Height="16"/>
+                </Button>
+                <Button x:Name="TafsirBtn" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Margin="5" Click="TafsirBtn_Click">
+                    <Path Data="{StaticResource BookIconGeometry}" Fill="{DynamicResource AccentBrush}" Stretch="Uniform" Width="16" Height="16"/>
+                </Button>
+                <Button x:Name="TadabburBtn" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Margin="5" Click="TadabburBtn_Click">
+                    <Path Data="{StaticResource BulbIconGeometry}" Fill="{DynamicResource AccentBrush}" Stretch="Uniform" Width="16" Height="16"/>
+                </Button>
+            </StackPanel>
+
+            <!-- Tafsir Popup (Overlay) -->
+            <Border x:Name="TafsirPanel" Grid.Row="1" Grid.RowSpan="2" Background="#F00F172A" 
+                    CornerRadius="15" Visibility="Collapsed" Padding="15">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="التفسير الميسر" Foreground="{DynamicResource AccentBrush}" 
+                               FontWeight="Bold" Margin="0,0,0,10" FontFamily="Segoe UI Semibold"/>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <TextBlock x:Name="TafsirTextBlock" Text="..." Foreground="{DynamicResource TextForegroundBrush}" 
+                                   FontSize="13" TextWrapping="Wrap" FontFamily="Cairo" LineHeight="22"/>
+                    </ScrollViewer>
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Click="CloseTafsir_Click"
+                            Background="Transparent" BorderThickness="0" Style="{StaticResource ModernButtonStyle}">
+                        <Path Data="{StaticResource CloseIconGeometry}" Fill="#88FFFFFF" Stretch="Uniform" Width="8" Height="8"/>
+                    </Button>
+                </Grid>
+            </Border>
+            
+            <ProgressBar x:Name="LoadingBar" Grid.Row="3" IsIndeterminate="True" Height="2" 
+                         Visibility="Collapsed" Margin="0,5,0,0" Background="Transparent" 
+                         Foreground="{DynamicResource AccentBrush}"/>
+        </Grid>
+    </Border>
+</local:WaheeWidgetBase>

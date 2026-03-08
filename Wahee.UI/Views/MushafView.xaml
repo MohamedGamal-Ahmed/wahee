@@ -1,0 +1,132 @@
+<UserControl x:Class="Wahee.UI.Views.MushafView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1200"
+             FlowDirection="RightToLeft"
+             Background="{DynamicResource BackgroundMainBrush}">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Control Bar -->
+        <Border Background="{DynamicResource CardBackgroundBrush}" 
+                BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1" 
+                Padding="20,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Surah Selector -->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="الذهاب إلى:" Foreground="{DynamicResource TextMutedBrush}" 
+                               VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <ComboBox x:Name="SurahComboBox" Width="200" 
+                              SelectionChanged="SurahComboBox_SelectionChanged"
+                              DisplayMemberPath="NameAr"/>
+                </StackPanel>
+
+                <!-- Current Page Info -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock x:Name="CurrentPageTxt" Text="صفحة 1 - 2" 
+                               Foreground="{DynamicResource TextForegroundBrush}" 
+                               FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Page Jump -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <TextBlock Text="صفحة:" Foreground="{DynamicResource TextMutedBrush}" 
+                               VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBox x:Name="PageNumberBox" Width="60" Text="1" 
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                             KeyUp="PageNumberBox_KeyUp"/>
+                    <Button Content="انتقال" Style="{StaticResource ModernButtonStyle}" 
+                            Margin="10,0,0,0" Padding="15,5" Click="GoToPage_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Mushaf Pages Display -->
+        <Border Grid.Row="1" Background="#FDF6E3" Margin="20">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="20" Opacity="0.2" ShadowDepth="5"/>
+            </Border.Effect>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Right Page (odd page in RTL) -->
+                <Border Background="#FFFEF7" Margin="5">
+                    <Image x:Name="RightPageImage" Stretch="Uniform" 
+                           RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Border>
+
+                <!-- Center Binding Effect -->
+                <Border Grid.Column="1" Width="10" Background="#E8DCC8">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="5" Opacity="0.3" ShadowDepth="0" Direction="180"/>
+                    </Border.Effect>
+                </Border>
+
+                <!-- Left Page (even page in RTL) -->
+                <Border Grid.Column="2" Background="#FFFEF7" Margin="5">
+                    <Image x:Name="LeftPageImage" Stretch="Uniform" 
+                           RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Bottom Navigation Bar -->
+        <Border Grid.Row="2" Background="{DynamicResource CardBackgroundBrush}" 
+                BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,1,0,0" 
+                Padding="20,15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Previous Button -->
+                <Button x:Name="PrevBtn" Style="{StaticResource ModernButtonStyle}" 
+                        HorizontalAlignment="Left" Padding="25,12" Click="Previous_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Data="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" 
+                              Fill="White" Stretch="Uniform" Width="16" Height="16"/>
+                        <TextBlock Text="السابق" Foreground="White" Margin="10,0,0,0" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </Button>
+
+                <!-- Page Counter -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock x:Name="PageCounterTxt" Text="1-2 / 604" 
+                               Foreground="{DynamicResource TextMutedBrush}" 
+                               FontSize="14" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Next Button -->
+                <Button x:Name="NextBtn" Style="{StaticResource ModernButtonStyle}" 
+                        Grid.Column="2" HorizontalAlignment="Right" Padding="25,12" Click="Next_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="التالي" Foreground="White" Margin="0,0,10,0" FontWeight="SemiBold"/>
+                        <Path Data="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" 
+                              Fill="White" Stretch="Uniform" Width="16" Height="16"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

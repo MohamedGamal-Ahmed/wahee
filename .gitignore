@@ -1,0 +1,43 @@
+# Build outputs
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio folders
+.vs/
+
+# Test and coverage
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Rider / VS Code
+.idea/
+.vscode/
+
+# Logs
+*.log
+build_err.txt
+build_output.txt
+startup_error.txt
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# NuGet
+*.nupkg
+packages/
+
+# Local databases / temp
+*.db-shm
+*.db-wal
+
+# Local external workspace not part of Wahee app
+XAMLStudio-dev/
