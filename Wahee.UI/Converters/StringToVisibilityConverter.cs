@@ -1,0 +1,20 @@
+﻿// Task Summary:
+// - Phase 2 / Task 4: Added converter for string visibility bindings.
+using System.Globalization;
+using System.Windows;
+using System.Windows.Data;
+
+namespace Wahee.UI.Converters
+{
+    public class StringToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object? value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var text = value as string;
+            return string.IsNullOrWhiteSpace(text) ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            => throw new NotImplementedException();
+    }
+}

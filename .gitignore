@@ -1,0 +1,38 @@
+﻿# Build outputs
+**/bin/
+**/obj/
+**/publish/
+
+# Rider/IDE
+.idea/
+.vs/
+.vscode/
+
+# User-specific
+*.user
+*.suo
+*.userprefs
+*.csproj.user
+
+# Logs and diagnostics
+*.log
+*.tmp
+*.cache
+*.binlog
+build_*.txt
+startup_error.txt
+mvvm_build_diag.txt
+build_diag.txt
+build_err.txt
+build_output.txt
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local databases and generated runtime data (keep source db json tracked)
+**/*.db-shm
+**/*.db-wal
+
+# Local extra tools
+XAMLStudio-dev/

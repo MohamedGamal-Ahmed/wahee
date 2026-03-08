@@ -1,0 +1,100 @@
+﻿<local:WaheeWidgetBase x:Class="Wahee.UI.Widgets.PrayerWidget"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:local="clr-namespace:Wahee.UI.Widgets"
+                        Title="مواقيت الصلاة"
+                        Height="165" Width="430"
+                        WindowStartupLocation="Manual"
+                        Topmost="False"
+                        AllowsTransparency="True"
+                        WindowStyle="None"
+                        Background="Transparent"
+                        FlowDirection="RightToLeft">
+
+    <Window.Resources>
+        <Storyboard x:Key="FadeIn">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8"/>
+        </Storyboard>
+    </Window.Resources>
+
+    <Border x:Name="MainBorder" Background="{DynamicResource BackgroundMainBrush}" CornerRadius="20" Margin="10">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="20" Opacity="0.5" ShadowDepth="0"/>
+        </Border.Effect>
+
+        <Grid Margin="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Background="{DynamicResource AccentBrush}" Width="28" Height="28" CornerRadius="8">
+                        <Path Data="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"
+                              Fill="White" Stretch="Uniform" Width="14" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock Text="مواقيت الصلاة" VerticalAlignment="Center" Margin="8,0,0,0"
+                               Foreground="{DynamicResource TextForegroundBrush}" FontSize="14" FontWeight="SemiBold" FontFamily="Segoe UI Semibold"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="PinButton"
+                            Click="PinButton_Click"
+                            Content="تثبيت"
+                            Style="{StaticResource ModernButtonStyle}"
+                            FontSize="10"
+                            Padding="6,3"
+                            Margin="0,0,4,0"
+                            Background="#18FFFFFF"
+                            Foreground="{DynamicResource TextForegroundBrush}" />
+                    <Button Click="CloseButton_Click"
+                            Style="{StaticResource ModernButtonStyle}" Padding="4" Background="Transparent">
+                        <Path Data="{StaticResource CloseIconGeometry}"
+                              Fill="White" Stretch="Uniform" Width="9" Height="9"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1" Margin="0,8,0,6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock x:Name="NextPrayerTxt" Text="الصلاة القادمة: ..."
+                               Foreground="{DynamicResource TextHeaderBrush}" FontSize="12" VerticalAlignment="Center"/>
+                    <TextBlock Text="  " />
+                    <TextBlock x:Name="LocationTxt" Text="جاري تحديد الموقع..."
+                               Foreground="#88FFFFFF" FontSize="10" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <TextBlock Grid.Column="1" x:Name="CountdownTxt" Text="--:--:--"
+                           Foreground="{DynamicResource AccentHighlightBrush}" FontSize="20"
+                           FontWeight="Bold" HorizontalAlignment="Center" FontFamily="Segoe UI Semibold"/>
+            </Grid>
+
+            <ItemsControl x:Name="PrayerListControl" Grid.Row="2" Margin="0,4,0,0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="1" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="#14FFFFFF" CornerRadius="10" Margin="2,0" Padding="6,4">
+                            <StackPanel>
+                                <TextBlock Text="{Binding NameAr}" Foreground="{DynamicResource TextForegroundBrush}"
+                                           FontSize="11" HorizontalAlignment="Center" FontFamily="Segoe UI Semibold"/>
+                                <TextBlock Text="{Binding Time}" Foreground="{DynamicResource AccentHighlightBrush}"
+                                           FontSize="13" HorizontalAlignment="Center" FontFamily="Segoe UI Semibold"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Border>
+</local:WaheeWidgetBase>

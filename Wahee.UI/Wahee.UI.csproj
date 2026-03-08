@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wahee.Core\Wahee.Core.csproj" />
+    <ProjectReference Include="..\Wahee.Infrastructure\Wahee.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <!-- Copy Assets to output -->
+  <ItemGroup>
+    <None Update="Assets\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+    <!-- External Assets -->
+    <Content Include="..\Quran-Data-version-2.0\**\*">
+        <Link>Quran-Data-version-2.0\%(RecursiveDir)%(FileName)%(Extension)</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\1027.mp3">
+        <Link>1027.mp3</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\database.json">
+        <Link>database.json</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <!-- Embedded Resources -->
+  <ItemGroup>
+    <Resource Include="Assets\Images\background_pattern.jpg" />
+    <Resource Include="Assets\Images\app_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+
+    <!-- App Metadata -->
+    <AssemblyName>Wahee</AssemblyName>
+    <Product>وحي (Wahee)</Product>
+    <Version>1.0.6</Version>
+    <AssemblyVersion>1.0.6.0</AssemblyVersion>
+    <FileVersion>1.0.6.0</FileVersion>
+    <Description>تطبيق إسلامي شامل لسطح المكتب - أذكار، مواقيت الصلاة، القرآن الكريم</Description>
+    <Authors>Mohamed Gamal</Authors>
+    <Company>MO-Gamal</Company>
+    <Copyright>© 2026 Mohamed Gamal. All rights reserved.</Copyright>
+  </PropertyGroup>
+
+</Project>

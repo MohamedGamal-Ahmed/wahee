@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wahee.Core", "Wahee.Core\Wahee.Core.csproj", "{F8551377-F5E1-4588-AB26-95F67D173C5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wahee.Infrastructure", "Wahee.Infrastructure\Wahee.Infrastructure.csproj", "{D102C364-C6B4-494B-8258-C4AABCD9A40D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wahee.UI", "Wahee.UI\Wahee.UI.csproj", "{AB2E760A-EFEB-4D80-8B44-3107EFFC2A41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8551377-F5E1-4588-AB26-95F67D173C5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8551377-F5E1-4588-AB26-95F67D173C5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8551377-F5E1-4588-AB26-95F67D173C5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8551377-F5E1-4588-AB26-95F67D173C5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D102C364-C6B4-494B-8258-C4AABCD9A40D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D102C364-C6B4-494B-8258-C4AABCD9A40D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D102C364-C6B4-494B-8258-C4AABCD9A40D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D102C364-C6B4-494B-8258-C4AABCD9A40D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB2E760A-EFEB-4D80-8B44-3107EFFC2A41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB2E760A-EFEB-4D80-8B44-3107EFFC2A41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB2E760A-EFEB-4D80-8B44-3107EFFC2A41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB2E760A-EFEB-4D80-8B44-3107EFFC2A41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

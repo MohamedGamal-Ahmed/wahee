@@ -1,0 +1,43 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Ported from XAML Studio -->
+    <Color x:Key="Color-Grey-Light-0">#FFC4C4C4</Color>
+    <Color x:Key="Color-Grey-Light-1">#FFE9E9E9</Color>
+    <Color x:Key="Color-Grey-Light-2">#FFF5F5F5</Color>
+
+    <Color x:Key="Color-Blue-Dark-0">#FF0D141B</Color>
+    <Color x:Key="Color-Blue-Dark-1">#FF111922</Color>
+    <Color x:Key="Color-Blue-Dark-2">#FF16212D</Color>
+    <Color x:Key="Color-Blue-Dark-3">#FF364F6B</Color>
+
+    <Color x:Key="Color-Blue-Light-0">#FF287B80</Color>
+    <Color x:Key="Color-Blue-Light-2">#FF43CDD6</Color>
+
+    <Color x:Key="Color-Red-Light-1">#FFCA416A</Color>
+    <Color x:Key="Color-Red-Light-2">#FFFC5185</Color>
+
+    <!-- Light Theme Colors -->
+    <SolidColorBrush x:Key="AccentBrush" Color="#059669" />
+    <SolidColorBrush x:Key="AccentHighlightBrush" Color="#10B981" />
+    <SolidColorBrush x:Key="AccentGoldBrush" Color="#D97706" />
+    <SolidColorBrush x:Key="BackgroundMainBrush" Color="#F8FAFC" />
+    <SolidColorBrush x:Key="SidebarBackgroundBrush" Color="#059669" />
+    <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="CardHoverBrush" Color="#F0FDF4" />
+    <SolidColorBrush x:Key="SystemControlAcrylicElementBrush" Color="#E2E8F0" />
+    <SolidColorBrush x:Key="TextForegroundBrush" Color="#1F2937" />
+    <SolidColorBrush x:Key="TextHeaderBrush" Color="#4B5563" />
+    <SolidColorBrush x:Key="TextMutedBrush" Color="#6B7280" />
+    <SolidColorBrush x:Key="BorderBrush" Color="#E5E7EB" />
+
+    <!-- Pattern Overlay -->
+    <ImageBrush x:Key="IslamicPatternBrush" 
+                ImageSource="pack://application:,,,/Wahee;component/Assets/Images/background_pattern.jpg"
+                TileMode="Tile" 
+                Viewport="0,0,300,225" 
+                ViewportUnits="Absolute"
+                Opacity="0.12"
+                Stretch="UniformToFill"/>
+
+</ResourceDictionary>
