@@ -20,6 +20,7 @@ namespace Wahee.UI.Views
         private const string LastMushafPageSettingKey = "LastMushafPage";
         private bool _isInitializing;
         private bool _isUpdatingSurahSelection;
+        private int _lastSavedPage = 1;
 
         public MushafView()
         {
@@ -28,18 +29,15 @@ namespace Wahee.UI.Views
             _quranDataService = App.ServiceProvider?.GetService<IQuranDataService>();
             _settingsService = App.ServiceProvider?.GetService<ISettingsService>();
 
-            // Set images base path relative to EXE
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-
             var possiblePaths = new[]
             {
                 Path.Combine(baseDir, "Quran-Data-version-2.0", "data", "quran_image"),
                 Path.Combine(baseDir, "Data", "quran_image"),
-                Path.Combine(baseDir, "..", "..", "..", "Quran-Data-version-2.0", "data", "quran_image") // Dev fallback
+                Path.Combine(baseDir, "..", "..", "..", "Quran-Data-version-2.0", "data", "quran_image")
             };
 
             _imagesBasePath = possiblePaths.FirstOrDefault(Directory.Exists) ?? possiblePaths[0];
-
             Loaded += MushafView_Loaded;
         }
 
@@ -74,6 +72,8 @@ namespace Wahee.UI.Views
                 System.Diagnostics.Debug.WriteLine($"Error restoring last mushaf page: {ex.Message}");
             }
 
+            _lastSavedPage = pageToOpen;
+            UpdateContinueReadingButton();
             NavigateToPage(pageToOpen);
         }
 
@@ -107,7 +107,6 @@ namespace Wahee.UI.Views
 
         private void NavigateToPage(int pageNumber)
         {
-            // Ensure we're on an odd page (right page in RTL layout)
             if (pageNumber % 2 == 0) pageNumber--;
             if (pageNumber < 1) pageNumber = 1;
             if (pageNumber > TotalPages) pageNumber = TotalPages - 1;
@@ -116,10 +115,8 @@ namespace Wahee.UI.Views
             var rightPage = pageNumber;
             var leftPage = pageNumber + 1;
 
-            // Load right page image (odd page)
             LoadPageImage(RightPageImage, rightPage);
 
-            // Load left page image (even page)
             if (leftPage <= TotalPages)
             {
                 LoadPageImage(LeftPageImage, leftPage);
@@ -138,6 +135,9 @@ namespace Wahee.UI.Views
 
         private async Task SaveLastReadingPositionAsync(int pageNumber)
         {
+            _lastSavedPage = pageNumber;
+            UpdateContinueReadingButton();
+
             try
             {
                 if (_settingsService != null)
@@ -149,6 +149,18 @@ namespace Wahee.UI.Views
             {
                 System.Diagnostics.Debug.WriteLine($"Error saving last mushaf page: {ex.Message}");
             }
+        }
+
+        private void UpdateContinueReadingButton()
+        {
+            ContinueReadingBtn.Content = _lastSavedPage > 1
+                ? $"متابعة القراءة (صفحة {_lastSavedPage})"
+                : "متابعة القراءة";
+        }
+
+        private void ContinueReading_Click(object sender, RoutedEventArgs e)
+        {
+            NavigateToPage(_lastSavedPage > 0 ? _lastSavedPage : 1);
         }
 
         private void UpdateSelectedSurahForPage(int pageNumber)
@@ -269,13 +281,13 @@ namespace Wahee.UI.Views
 
         private void Previous_Click(object sender, RoutedEventArgs e)
         {
-            var newPage = _currentLeftPageIndex - 3; // Go back 2 pages (to previous spread)
+            var newPage = _currentLeftPageIndex - 3;
             NavigateToPage(newPage);
         }
 
         private void Next_Click(object sender, RoutedEventArgs e)
         {
-            var newPage = _currentLeftPageIndex + 1; // Go forward 2 pages
+            var newPage = _currentLeftPageIndex + 1;
             NavigateToPage(newPage);
         }
 
@@ -310,7 +322,6 @@ namespace Wahee.UI.Views
         }
     }
 
-    // Helper classes for JSON deserialization
     public class MushafPage
     {
         public int Page { get; set; }
