@@ -11,7 +11,7 @@ namespace Wahee.UI.Views
         private const string RepoBaseUrl = "https://github.com/MohamedGamal-Ahmed/wahee";
         private const string BugReportUrl = RepoBaseUrl + "/issues/new?template=bug_report.yml";
         private const string FeatureRequestUrl = RepoBaseUrl + "/issues/new?template=feature_request.yml";
-        private const string RateAppUrl = RepoBaseUrl + "/discussions/categories/ideas";
+        private const string RateAppUrl = RepoBaseUrl + "/issues/new?title=%D8%AA%D9%82%D9%8A%D9%8A%D9%85%20%D8%A7%D9%84%D8%AA%D8%B7%D8%A8%D9%8A%D9%82&labels=feedback";
 
         public AboutPage()
         {
@@ -46,3 +46,4 @@ namespace Wahee.UI.Views
         }
     }
 }
+

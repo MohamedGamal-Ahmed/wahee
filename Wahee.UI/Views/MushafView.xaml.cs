@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -14,13 +15,14 @@ namespace Wahee.UI.Views
         private readonly IQuranDataService? _quranDataService;
         private readonly ISettingsService? _settingsService;
         private List<MushafPage> _pages = new();
-        private int _currentLeftPageIndex = 1; // Even page (left in RTL)
+        private int _currentLeftPageIndex = 1;
         private const int TotalPages = 604;
         private readonly string _imagesBasePath;
         private const string LastMushafPageSettingKey = "LastMushafPage";
         private bool _isInitializing;
         private bool _isUpdatingSurahSelection;
         private int _lastSavedPage = 1;
+        private int _currentRightPage = 1;
 
         public MushafView()
         {
@@ -39,6 +41,7 @@ namespace Wahee.UI.Views
 
             _imagesBasePath = possiblePaths.FirstOrDefault(Directory.Exists) ?? possiblePaths[0];
             Loaded += MushafView_Loaded;
+            Unloaded += MushafView_Unloaded;
         }
 
         private async void MushafView_Loaded(object sender, RoutedEventArgs e)
@@ -107,13 +110,13 @@ namespace Wahee.UI.Views
 
         private void NavigateToPage(int pageNumber)
         {
-            if (pageNumber % 2 == 0) pageNumber--;
             if (pageNumber < 1) pageNumber = 1;
-            if (pageNumber > TotalPages) pageNumber = TotalPages - 1;
+            if (pageNumber > TotalPages) pageNumber = TotalPages;
 
-            _currentLeftPageIndex = pageNumber + 1;
             var rightPage = pageNumber;
             var leftPage = pageNumber + 1;
+            _currentLeftPageIndex = leftPage;
+            _currentRightPage = rightPage;
 
             LoadPageImage(RightPageImage, rightPage);
 
@@ -161,6 +164,11 @@ namespace Wahee.UI.Views
         private void ContinueReading_Click(object sender, RoutedEventArgs e)
         {
             NavigateToPage(_lastSavedPage > 0 ? _lastSavedPage : 1);
+        }
+
+        private async void MushafView_Unloaded(object sender, RoutedEventArgs e)
+        {
+            await SaveLastReadingPositionAsync(_currentRightPage > 0 ? _currentRightPage : 1);
         }
 
         private void UpdateSelectedSurahForPage(int pageNumber)
@@ -276,18 +284,18 @@ namespace Wahee.UI.Views
         private void UpdateNavigationButtons(int currentPage)
         {
             PrevBtn.IsEnabled = currentPage > 1;
-            NextBtn.IsEnabled = currentPage < TotalPages - 1;
+            NextBtn.IsEnabled = currentPage < TotalPages;
         }
 
         private void Previous_Click(object sender, RoutedEventArgs e)
         {
-            var newPage = _currentLeftPageIndex - 3;
+            var newPage = _currentRightPage - 2;
             NavigateToPage(newPage);
         }
 
         private void Next_Click(object sender, RoutedEventArgs e)
         {
-            var newPage = _currentLeftPageIndex + 1;
+            var newPage = _currentRightPage + 2;
             NavigateToPage(newPage);
         }
 
@@ -337,7 +345,9 @@ namespace Wahee.UI.Views
 
     public class MushafPageVerse
     {
+        [JsonPropertyName("surah_number")]
         public int SurahNumber { get; set; }
+
         public int Verse { get; set; }
         public MushafSurahName? Name { get; set; }
     }
@@ -349,3 +359,4 @@ namespace Wahee.UI.Views
         public string Transliteration { get; set; } = "";
     }
 }
+
